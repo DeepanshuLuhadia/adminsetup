@@ -1,71 +1,130 @@
 @extends('auth.admin.layouts.app')
+
 @section('content')
-      <div class="row">
-        <div class="col-md-6">
-          <img src="{{asset('Backend/login/images/undraw_remotely_2j6y.svg')}}" alt="Image" class="img-fluid">
-        </div>
-        <div class="col-md-6 contents">
-          <div class="row justify-content-center">
-            <div class="col-md-8">
-              <div class="mb-4">
-              <h3>Sign In</h3>
-              <p class="mb-4">Login to Papaya Admin Panel</p>
-            </div>
-             <form action="{{ route('adminLoginPost') }}" method="post">
-              {!! csrf_field() !!}
-              <div class="form-group first">
-                <label for="username">Email</label>
-                <input type="email" class="form-control" name="email"  required="required">
+<link rel="stylesheet" href="{{asset('Backend/css/loginStyle.css')}}" />
+   <!-- Section: Design Block -->
 
-              </div>
-                @if ($errors->has('email'))
-                <span class="help-block font-red-mint">
-                    <strong>{{ $errors->first('email') }}</strong>
+<div id="containerDiv" class="containerDiv">
+		<!-- FORM SECTION -->
+		<div class="row">
+			<!-- SIGN UP -->
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-up">
+          <form method="POST" action="{{ route('admin.password.email') }}">
+            @csrf
+            <div class="input-group">
+              <i class='bx bxs-user'></i>
+              <input id="email" placeholder="Email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+              @error('email')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
                 </span>
-                @endif
-              <div class="form-group last mb-4">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" required="required">
-                
-              </div>
-                @if ($errors->has('password'))
-                <span class="help-block font-red-mint">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-                @endif
-              
-              <div class="d-flex mb-5 align-items-center">
-                {{--<label class="form-check-label control control--checkbox mb-0" for="remember"><span class="caption">Remember me</span>
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                  <div class="control__indicator"></div>
-                </label>--}}
-                @if (Route::has('forgot_password'))
-                    <a class="btn btn-link forgot-pass" href="{{ route('forgot_password') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                @endif
-              </div>
-
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
-
-              {{--<span class="d-block text-left my-4 text-muted">&mdash; or login with &mdash;</span>
-                  
-                  <div class="social-login">
-                    <a href="#" class="facebook">
-                      <span class="icon-facebook mr-3"></span> 
-                    </a>
-                    <a href="#" class="twitter">
-                      <span class="icon-twitter mr-3"></span> 
-                    </a>
-                    <a href="#" class="google">
-                      <span class="icon-google mr-3"></span> 
-                    </a>
-              </div>--}}
-            </form>
+              @enderror
             </div>
-          </div>
-          
-        </div>
-        
-      </div>
+
+            <button>
+              {{ __('Send Password Reset Link') }}
+            </button>
+          </form>
+						<p>
+							<span>
+								Remember Password ?
+							</span>
+							<b onclick="toggle()" class="pointer">
+								Sign in here
+							</b>
+						</p>
+					</div>
+				</div>
+			
+			</div>
+			<!-- END SIGN UP -->
+			<!-- SIGN IN -->
+			<div class="col align-items-center flex-col sign-in">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-in">
+                        <form action="{{ route('adminLoginPost') }}" method="post">
+                            {!! csrf_field() !!}
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" placeholder="Username" name="email"  required="required">
+                            @if ($errors->has('email'))
+                            <span class="help-block font-red-mint">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                            @endif
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" placeholder="Password" name="password" required="required">
+                            @if ($errors->has('password'))
+                            <span class="help-block font-red-mint">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif
+						</div>
+						<button>
+							Sign in
+						</button>
+                        </form>
+						<p>
+							<b onclick="toggle()" class="pointer">
+								Forgot password?
+							</b>
+						</p>
+					
+					</div>
+				</div>
+				<div class="form-wrapper">
+		
+				</div>
+			</div>
+			<!-- END SIGN IN -->
+		</div>
+		<!-- END FORM SECTION -->
+		<!-- CONTENT SECTION -->
+		<div class="row content-row">
+			<!-- SIGN IN CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="text sign-in">
+					<h2>
+						Welcome
+					</h2>
+	
+				</div>
+				<div class="img sign-in">
+		
+				</div>
+			</div>
+			<!-- END SIGN IN CONTENT -->
+			<!-- SIGN UP CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up">
+				
+				</div>
+				<div class="text sign-up">
+					<h2>
+						Reset Your Password
+					</h2>
+	
+				</div>
+			</div>
+			<!-- END SIGN UP CONTENT -->
+		</div>
+		<!-- END CONTENT SECTION -->
+	</div>
+<script>
+let container = document.getElementById('containerDiv')
+
+toggle = () => {
+	container.classList.toggle('sign-in')
+	container.classList.toggle('sign-up')
+}
+
+setTimeout(() => {
+	container.classList.add('sign-in')
+}, 200)
+</script>
+<!-- Section: Design Block -->
    @endsection

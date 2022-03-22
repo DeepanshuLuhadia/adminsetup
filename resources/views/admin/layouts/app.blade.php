@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/x-icon" href="{{asset('Backend/setting/'.$global_setting->favicon)}}">
     <title>Papaya</title>
       @include('admin.layouts.header_style')
 </head>

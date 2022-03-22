@@ -1,4 +1,3 @@
-    <link rel="icon" href="{{asset('Backend/img/logo.png')}}" type="image/png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('Backend/css/bootstrap.min.css')}}" />
     <!-- themefy CSS -->

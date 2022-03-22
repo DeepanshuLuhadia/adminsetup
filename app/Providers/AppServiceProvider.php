@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\GlobalSetting;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $data= GlobalSetting::first();
+        view()->share('global_setting', $data);
     }
 }

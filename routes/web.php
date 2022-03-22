@@ -67,3 +67,7 @@ Route::get('clear-cache',function(){
     Artisan::call('config:cache');
     return '<h1>Cache cleared</h1>';
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
